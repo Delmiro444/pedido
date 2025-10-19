@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ser</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(246.66deg, #F68704 16.35%, #F66E13 74.14%);
+      --secondary-blue: #003a8c;
+      --accent-blue: #0f8bf1;
+      --gold: #f7c948;
+      --dark: #111;
+      --light: #fff;
+      --gray: #666;
+      --light-gray: #f8f9fa;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+      --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+       --color-primary: #E6540F;
+      --color-secondary: #1A79CB;
+      --header-h: 70px;
+      --color-text: #666;
+      --color-dark: #333;
+      --color-light: #f9f9f9;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+   
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: var(--primary-gradient);
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--light);
+    }
+
+    /* Hamburguer */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      z-index: 1101; /* acima do overlay */
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: #fff;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Menu desktop */
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--gold);
+    }
+
+    /* Overlay (fundo escuro) */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #111;
+        width: 70%;
+        height: 100vh;
+        gap: 20px;
+        transition: right 0.3s ease-in-out;
+        z-index: 1100;
+      }
+
+      .nav-menu.active {
+        right: 0;
+      }
+
+      .nav-link {
+        color: #fff;
+        font-size: 1.3rem;
+        padding: 15px;
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(0,58,140,0.8), rgba(246,135,4,0.8)),
+                  url('bega.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--light);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      margin-bottom: 15px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--secondary-blue);
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      margin-top: 30px;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-cta:hover {
+      background: var(--light);
+      transform: translateY(-3px);
+    }
+    
+   
+
+    /* Seções de Conteúdo Melhoradas */
+    .content-section {
+      background: var(--bg-overlay);
+      margin: 40px 20px;
+      padding: 60px 40px;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+     
+    
+    .section-title {
+       font-size: clamp(2.5rem, 3vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      background: var(--shadow-strong);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+   
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+     
+    }
+     .conteudo{  
+      color:  #F66E13;
+     }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      max-width: 1100px;
+      padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 16px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0;
+      color: #333;
+    }
+
+    .divider {
+      width: 40px;
+      height: 3px;
+      background-color: orange;
+      margin: 8px 0 12px;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+    }
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: var(--light);
+      padding: 40px 20px;
+      text-align: center;
+    }
+     /* Ícones sociais */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: clamp(30px, 5vw, 50px) 0;
+      flex-wrap: wrap;
+      padding: 0 5%;
+    }
+
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 20px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-light);
+      border-top: 1px solid #ddd;
+      padding: clamp(30px, 5vw, 50px) 5% 20px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: clamp(30px, 5vw, 50px);
+    }
+
+    .footer-column h4 {
+      margin-bottom: 15px;
+      color: var(--color-primary);
+      font-size: clamp(16px, 2vw, 18px);
+    }
+
+    .footer-column ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #666;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--color-primary);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      font-size: 13px;
+    }
+     .back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(246.66deg, #f68704 16.35%, #f66e13 74.14%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all .25s ease;
+  font-size: 15px;
+  z-index: 2000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn i, .back-btn svg {
+  font-size: 16px;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+}
+
+/* hover */
+.back-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+@media (max-width: 768px){
+   .back-btn{
+      text-align: end;
+   }
+}
+ /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: var(--shadow-soft);
+      z-index: 1000;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #25D366;
+    }
+
+  </style>
+</head>
+<body>
+
+     <a href="Home.html" class="back-btn" title="Voltar para o início" aria-label="Voltar para a página inicial">
+  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+  <span>Voltar para Home</span>
+</a>
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Header -->
+  
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Adere os nossos serviços</h1>
+      <p>Eventos: Prestamos serviços a qualquer tipo de eventos</p>
+      <p>Atendimento: O mais rápido e eficiente possível</p>
+      <p>O cliente so precisa entrar em contacto com a nossa equipa</p>
+     
+    </div>
+  </section>
+  
+   <div class="container">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <img src="img4.jpg" alt="Tarifários de Voz e Dados">
+      <div class="card-content">
+        <h3>Hamburhuer Combo</h3>
+        <div class="divider"></div>
+        <p>
+           Servimos ao teu evento diversos tipos de hambúrguers no prato, e com olhos a sua preferência.
+        </p>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <img src="img5.jpg" alt="Tarifário Maxibin">
+      <div class="card-content">
+        <h3>Hambúrguer Americano</h3>
+        <div class="divider"></div>
+        <p>
+          Servimos o estilo fast food Mac-donald, no prato como de forma tradicional.
+        </p>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <img src="img6.jpg" alt="Promoção">
+      <div class="card-content">
+        <h3>Sandes Brasileira</h3>
+        <div class="divider"></div>
+        <p>
+           As melhores sandes que serve com pão de leite e batatas fritas, um sabor inesquecivel.
+        </p>
+      </div>
+    </div>
+
+    
+  </div>
+
+  
+
+
+  <div class="social-icons">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+   
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Com todos os molhos</h4>
+        <ul>
+          <li><a href="#">A sabor a ketchup</a></li>
+          <li><a href="#">Maionese a morango</a></li>
+          <li><a href="#">Gosto a picanha</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Hambúrguer no prato</h4>
+        <ul>
+          <li><a href="#">Com mix de batatas</a></li>
+          <li><a href="#">Com mix de carnes</a></li>
+          <li><a href="#">Com mix de molhos</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Sobre Nós</h4>
+        <ul>
+          <li><a href="#">Quem Somos</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Notícias</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Ajuda</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contactos</a></li>
+          <li><a href="#">Área de Cliente</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Fast Eat. Todos os direitos reservados. by real_delmiro444</p>
+    </div>
+  </footer>
+
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/+244932381213" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+</body>
+</html>

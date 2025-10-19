@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cardápio do Dia</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="styles.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, rgba(0, 58, 140, 0.7), rgba(246, 135, 4, 0.7)),
+              url('captura5.jpg') no-repeat center center fixed;
+  background-size: cover;
+      padding: 40px 20px;
+      color: white;
+    }
+
+    .cardapio-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #f2d74e;
+    }
+
+    .established {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 30px;
+      color: #ccc;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    article {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #555;
+      padding: 10px 0;
+      font-size: 1.1em;
+    }
+
+    .preco {
+      color: #f2d74e;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    footer a {
+      color: #f2d74e;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .cardapio-container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.5em;
+      }
+
+      article {
+        font-size: 1em;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .preco {
+        margin-top: 5px;
+      }
+    }
+   .back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(246.66deg, #f68704 16.35%, #f66e13 74.14%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all .25s ease;
+  font-size: 15px;
+  z-index: 2000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn i, .back-btn svg {
+  font-size: 16px;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+}
+
+/* hover */
+.back-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+@media (max-width: 768px){
+   .back-btn{
+      text-align: end;
+   }
+}
+  </style>
+</head>
+<body>
+   <a href="Home.html" class="back-btn" title="Voltar para o início" aria-label="Voltar para a página inicial">
+  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+  <span>Voltar para Home</span>
+</a>
+  <div class="cardapio-container">
+    <main>
+      <h1>🍽️ Fast Food Top</h1>
+      <p class="established">Desde 2020</p>
+      <hr>
+
+      <section>
+        <br>
+        <h2>💪 Hambúrguer & Hot</h2>
+        <img src="kit.png" alt="kit" style="width: 200px; border-radius: 50%;">
+        <article>
+          <p>Hambúrguer normal</p><p class="preco">3000.00 kz</p>
+        </article>
+        <article>
+          <p>Hambúrguer com todos molhos +</p><p class="preco">1000.00 kz</p>
+        </article>
+        <article>
+          <p>Hambúrguer com mix de molhos</p><p class="preco">5000.00 kz</p>
+        </article>
+        <article>
+          <p>Hambúrguer com molho francês</p><p class="preco">2500.00 kz</p>
+        </article>
+        <article>
+          <p>Hambúrguer + combo</p><p class="preco">12000.00 kz</p>
+        </article>
+      </section>
+
+       <section>
+        <h2>💪 Cachorro quente</h2>
+        <br>
+         <img src="cachorro.png" alt="cachorro" style="width: 200px; border-radius: 50%;">
+        <article>
+          <p>Cachorro normal</p><p class="preco">2000. 00 KZ</p>
+        </article>
+        <article>
+          <p>Cachorro com todos molhos +</p><p class="preco">5000.00 KZ</p>
+        </article>
+        <article>
+          <p>Cachorro com mix de molhos</p><p class="preco">3000.00 KZ</p>
+        </article>
+        <article>
+          <p>Cachorro com molho francês</p><p class="preco">1500.00 KZ</p>
+        </article>
+        <article>
+          <p>Cachorro + combo</p><p class="preco">8000.00 KZ</p>
+        </article>
+      </section>
+      
+         <section>
+        <h2>Bebidas</h2>
+        <article>
+          <p>Sumo natural normal</p><p class="preco">250. 00 KZ</p>
+        </article>
+        <article>
+          <p>Sumo natural com mix de frutas</p><p class="preco">300. 00 KZ</p>
+        </article>
+        <article>
+          <p>Sumol</p><p class="preco">700. 00 KZ</p>
+        </article>
+         <article>
+          <p>Coca-cola</p><p class="preco">700. 00 KZ</p>
+        </article>
+         <article>
+          <p>Fanta</p><p class="preco">700. 00 KZ</p>
+        </article>
+      </section>
+
+      <section>
+        <h2>🍨 Sobremesas</h2>
+        <article>
+          <p>Batidos de leite e ovos</p><p class="preco">1000.00 kz</p>
+        </article>
+        <article>
+          <p>Batido de 8 frutas</p><p class="preco">1500.00 kz</p>
+        </article>
+        <article>
+          <p>Batidos de morango e abacate</p><p class="preco">500.00 kz</p>
+        </article>
+      </section>
+    </main>
+    <hr>
+    <footer>
+      <p><a href="https://www.freecodecamp.org" target="_blank">Visite nosso portfólio</a></p>
+      <p>📍 Rua do mercado do luanda sul</p>
+    </footer>
+    <br>
+    <br>
+   
+  </div>
+</body>
+</html>

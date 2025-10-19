@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="freeCodeCamp Accessibility Quiz practice project" />
+  <title>pedir fast food</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  --primary-gradient: linear-gradient(246.66deg, #f68704 16.35%, #f66e13 74.14%);
+  --secondary-blue: #003a8c;
+  --accent-blue: #0f8bf1;
+  --gold: #f7c948;
+  --dark: #0d0d0d;
+  --light: #ffffff;
+  --gray: #555;
+  --light-gray: #f5f6fa;
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 15px 35px rgba(0, 0, 0, 0.12);
+  --transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-color: #f9fafb;
+      --primary: #2563eb;
+      --secondary: #1e293b;
+      --light: #ffffff;
+      --gray: #94a3b8;
+  
+}
+      
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, rgba(0, 58, 140, 0.7), rgba(246, 135, 4, 0.7)),
+              url('bega.jpg') no-repeat center center fixed;
+  background-size: cover;
+      color: var(--secondary);
+    }
+
+    #logo {
+      width: 120px;
+      aspect-ratio: 4 / 1;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      flex-grow: 1;
+      text-align: center;
+    }
+
+   /* Menu */
+.nav-menu {
+  display: flex;
+  gap: 35px;
+  list-style: none;
+}
+
+.nav-link {
+  color: #f66e13;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--secondary-blue);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #444;
+    backdrop-filter: blur(10px);
+    width: 70%;
+    height: 100vh;
+    gap: 25px;
+    transition: right 0.4s ease;
+    z-index: 1100;
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-link {
+    color: #fff;
+    font-size: 1.4rem;
+  }
+}
+
+    main {
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    form {
+      background: linear-gradient(135deg, rgba(0, 58, 140, 0.7), rgba(246, 135, 4, 0.7)),
+              url('bega.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  background-clip: blur(30px);
+      max-width: 700px;
+      width: 100%;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      border-bottom: 2px solid var(--gray);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info label {
+      font-weight: 600;
+    }
+
+    .info input {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .formrow {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    select,
+    textarea {
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    .question-block {
+      margin-top: 1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+    }
+
+    ul.answers-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .answers-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+   .back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: var(--primary-gradient);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  font-size: 15px;
+  z-index: 2000;
+}
+
+.back-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(246.66deg, #f68704 16.35%, #f66e13 74.14%);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all .25s ease;
+  font-size: 15px;
+  z-index: 2000;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn i, .back-btn svg {
+  font-size: 16px;
+  line-height: 1;
+  width: 16px;
+  height: 16px;
+}
+
+/* hover */
+.back-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+}
+@media (max-width: 768px){
+   .back-btn{
+      text-align: end;
+   }
+}
+    footer {
+      background: var(--secondary);
+      color: var(--gray);
+      text-align: center;
+      padding: 1rem;
+    }
+
+    address a {
+      color: var(--gray);
+      text-decoration: none;
+    }
+
+    address a:hover {
+      color: var(--primary);
+    }
+
+    /* Acessibilidade */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      form {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+ <a href="Home.html" class="back-btn" title="Voltar para o início" aria-label="Voltar para a página inicial">
+  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+  <span>Voltar para Home</span>
+</a>
+
+  <main>
+    <form method="post" action="https://freecodecamp.org/practice-project/accessibility-quiz">
+      <section role="region" aria-labelledby="student-info">
+        <br>
+        <h2 id="student-info" style="text-align: center;">Encomenda e chega até você...</h2>
+        <div class="info">
+          <label for="student-name">O que vai querer?</label>
+          <input type="text" name="student-name" id="student-name" />
+          <label for="student-email">Quantos vai querer?</label>
+          <input type="number" name="student-email" id="student-email" />
+         
+        </div>
+      </section>
+
+      <section role="region" aria-labelledby="html-questions">
+        <h2 id="html-questions">Tipos de molhos</h2>
+        <div class="question-block">
+          <h3><span class="sr-only"></span>1</h3>
+          <fieldset class="question" name="html-question-one">
+            <legend>Escolhas os mix de molhos da tua preferencia</legend>
+            <ul class="answers-list">
+              <li>
+                <label><input type="radio" name="q1" value="true" /> Mix picante de ovo</label>
+              </li>
+              <li>
+                <label><input type="radio" name="q1" value="false" /> Mix a picapau</label>
+              </li>
+               <li>
+                <label><input type="radio" name="q1" value="true" /> Mix vegetariano com leite</label>
+              </li>
+              <li>
+                <label><input type="radio" name="q1" value="false" /> Mix Mix com atum torrado</label>
+              </li>
+            </ul>
+
+           
+            </ul>
+          </fieldset>
+        </div>
+
+          <div class="question-block">
+          <h3><span class="sr-only"></span>1</h3>
+          <fieldset class="question" name="html-question-one">
+            <legend>Escolhas os mix de milk checks</legend>
+            <ul class="answers-list">
+              <li>
+                <label><input type="radio" name="q1" value="true" /> Mix batidos de ovos e abacate</label>
+              </li>
+              <li>
+                <label><input type="radio" name="q1" value="false" /> Mix batidos de chocolate e creme</label>
+              </li>
+               <li>
+                <label><input type="radio" name="q1" value="true" /> Mix batido de bananas, com morango</label>
+              </li>
+              <li>
+                <label><input type="radio" name="q1" value="false" /> Mix batidos com 11 frutas</label>
+              </li>
+            </ul>
+
+           
+            </ul>
+          </fieldset>
+        </div>
+      </section>
+
+     
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  
+</body>
+</html>

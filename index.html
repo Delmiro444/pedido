@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>Fast Eat - Página Responsiva</title>
+  <style>
+    /* Reset e variáveis */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-primary: #E6540F;
+      --color-secondary: #1A79CB;
+      --header-h: 70px;
+      --color-text: #666;
+      --color-dark: #333;
+      --color-light: #f9f9f9;
+      --shadow-sm: 0 2px 6px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Header responsivo */
+    .header {
+      padding: 15px 5%;
+      border-bottom: 1px solid #e6e6e6;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--header-h);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+
+    nav ul {
+      display: flex;
+      gap: clamp(15px, 3vw, 30px);
+      list-style: none;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      display: block;
+      transition: var(--transition);
+      font-size: clamp(13px, 1.5vw, 15px);
+      white-space: nowrap;
+    }
+
+    nav ul a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Mega Menu */
+    .mega-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      min-width: 400px;
+      max-width: 90vw;
+      background: #fff;
+      padding: 25px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      z-index: 200;
+      margin-top: 10px;
+    }
+
+    nav ul li:hover .mega-menu {
+      display: grid;
+    }
+
+    .mega-menu div h4 {
+      margin: 0 0 10px;
+      color: var(--color-primary);
+      font-size: 16px;
+    }
+
+    .mega-menu div p {
+      margin: 0;
+      font-size: 14px;
+      color: #444;
+      line-height: 1.4;
+    }
+
+    /* Menu hambúrguer */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--color-dark);
+      background: none;
+      border: none;
+      padding: 5px;
+      transition: var(--transition);
+    }
+
+    .menu-toggle:hover {
+      color: var(--color-primary);
+    }
+
+    /* Hero responsivo */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: clamp(400px, 60vh, 600px);
+      overflow: hidden;
+      background: #000;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      z-index: 1;
+    }
+
+    .hero img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+
+    /* Indicadores */
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 10px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid transparent;
+    }
+
+    .dot:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .dot.active {
+      background: var(--color-primary);
+      border-color: #fff;
+      transform: scale(1.2);
+    }
+
+    /* Container de cards */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: clamp(20px, 3vw, 30px);
+      max-width: 1200px;
+      padding: clamp(30px, 5vw, 60px) 5%;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-content {
+      padding: clamp(16px, 3vw, 24px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      margin: 0 0 12px;
+      color: var(--color-dark);
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.3;
+    }
+
+    .divider {
+      width: 50px;
+      height: 4px;
+      background-color: var(--color-primary);
+      margin: 0 0 15px;
+      border-radius: 2px;
+    }
+
+    .card-content p {
+      margin: 0;
+      color: var(--color-text);
+      font-size: clamp(14px, 1.5vw, 16px);
+      line-height: 1.6;
+    }
+
+    /* Ícones sociais */
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: clamp(30px, 5vw, 50px) 0;
+      flex-wrap: wrap;
+      padding: 0 5%;
+    }
+
+    .social-icons a {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
+      font-size: 20px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-light);
+      border-top: 1px solid #ddd;
+      padding: clamp(30px, 5vw, 50px) 5% 20px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: clamp(30px, 5vw, 50px);
+    }
+
+    .footer-column h4 {
+      margin-bottom: 15px;
+      color: var(--color-primary);
+      font-size: clamp(16px, 2vw, 18px);
+    }
+
+    .footer-column ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-column ul li a {
+      color: #666;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--color-primary);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      font-size: 13px;
+    }
+
+    /* Botão scroll */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      z-index: 999;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+    }
+
+    #scrollTopBtn:hover {
+      background: var(--color-secondary);
+      transform: scale(1.1);
+    }
+
+    /* Media Queries */
+    @media (max-width: 992px) {
+      .mega-menu {
+        grid-template-columns: repeat(2, 1fr);
+        min-width: 350px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --header-h: 60px;
+      }
+
+      .header {
+        padding: 10px 5%;
+      }
+
+      .logo img {
+        height: 35px;
+      }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: fixed;
+        top: var(--header-h);
+        right: 0;
+        width: min(300px, 80vw);
+        height: calc(100vh - var(--header-h));
+        border-left: 1px solid #ddd;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+        padding: 20px;
+        gap: 0;
+        overflow-y: auto;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+      }
+
+      nav ul a {
+        padding: 15px 10px;
+        font-size: 16px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .mega-menu {
+        position: static;
+        width: 100%;
+        min-width: auto;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        display: none;
+        grid-template-columns: 1fr;
+        padding: 15px 10px;
+        background: var(--color-light);
+        margin-top: 0;
+        transform: none;
+      }
+
+      nav ul li.open .mega-menu {
+        display: grid;
+      }
+
+      .hero {
+        height: clamp(300px, 50vh, 450px);
+      }
+
+      #scrollTopBtn {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: clamp(250px, 40vh, 350px);
+      }
+
+      .card img {
+        height: 180px;
+      }
+
+      .social-icons a {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+      }
+
+      .dots {
+        bottom: 15px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .card img {
+        height: 160px;
+      }
+    }
+
+    /* Melhorias de acessibilidade */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="kit.png" alt="Fast Eat Logo">
+    </div>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+    <nav>
+      <ul id="menu">
+        <li><a href="Home.html">HOME</a></li>
+        <li>
+          <a href="#">ENTREGAS</a>
+          <div class="mega-menu">
+            <div>
+              <h4>Viana</h4>
+              <p>Vila, Luanda Sul, Zango</p>
+            </div>
+            <div>
+              <h4>Benfica</h4>
+              <p>Na praia, Shoprite, I.S.I.A</p>
+            </div>
+            <div>
+              <h4>kilamba & KK</h4>
+              <p>Todos quarteirões</p>
+            </div>
+          </div>
+        </li>
+       
+        <li><a href="Sobre.html">SOBRE NÓS</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <img src="captura1.jpg" alt="Promoção 1" class="active">
+    <img src="captura2.jpg" alt="Promoção 2">
+    <img src="captura3.jpg" alt="Promoção 3">
+    <img src="captura4.jpg" alt="Promoção 4">
+    <img src="captura5.jpg" alt="Promoção 5">
+    <div class="dots"></div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <img src="ban1.jpg" alt="Melhores Fast Food">
+      <div class="card-content">
+        <h3>Os melhores Fast Food</h3>
+        <div class="divider"></div>
+        <p>Escolha o melhor hambúrguer com os melhores sabores e proteínas.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="captura4.jpg" alt="Hambúrguer Combo">
+      <div class="card-content">
+        <h3>Conheça o hambúrguer combo</h3>
+        <div class="divider"></div>
+        <p>Com carne vermelha e ovos estrelados, para um bom ganho de massa muscular.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="img2.jpg" alt="Promoção Sandes">
+      <div class="card-content">
+        <h3>Promoção</h3>
+        <div class="divider"></div>
+        <p>As nossas sandes mistas estão agora em promoção, compre 1 leve 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="social-icons">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <a href="#" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Com todos os molhos</h4>
+        <ul>
+          <li><a href="#">A sabor a ketchup</a></li>
+          <li><a href="#">Maionese a morango</a></li>
+          <li><a href="#">Gosto a picanha</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Hambúrguer no prato</h4>
+        <ul>
+          <li><a href="#">Com mix de batatas</a></li>
+          <li><a href="#">Com mix de carnes</a></li>
+          <li><a href="#">Com mix de molhos</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Sobre Nós</h4>
+        <ul>
+          <li><a href="#">Quem Somos</a></li>
+          <li><a href="#">Carreiras</a></li>
+          <li><a href="#">Notícias</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Ajuda</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contactos</a></li>
+          <li><a href="#">Área de Cliente</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Fast Eat. Todos os direitos reservados. by real_delmiro444</p>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" aria-label="Voltar ao topo">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+  // ============================
+  // SLIDER AUTOMÁTICO DO HERO
+  // ============================
+  const slides = document.querySelectorAll('.hero img');
+  const dotsContainer = document.querySelector('.dots');
+  let index = 0;
+  let intervalId;
+
+  // Cria os indicadores
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      clearInterval(intervalId);
+      showSlide(i);
+      startAutoSlide();
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = document.querySelectorAll('.dot');
+
+  function showSlide(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+    index = i;
+  }
+
+  function nextSlide() {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }
+
+  function startAutoSlide() {
+    intervalId = setInterval(nextSlide, 4000);
+  }
+
+  startAutoSlide();
+
+
+  // ============================
+  // MENU HAMBÚRGUER MOBILE
+  // ============================
+  const menuToggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+
+  // Submenus (mega menus) no mobile
+  const menuItems = document.querySelectorAll('#menu > li > a');
+
+  menuItems.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const parent = link.parentElement;
+      const submenu = parent.querySelector('.mega-menu');
+
+      if (window.innerWidth <= 768 && submenu) {
+        e.preventDefault();
+        parent.classList.toggle('open');
+      }
+    });
+  });
+
+
+  // ============================
+  // BOTÃO VOLTAR AO TOPO
+  // ============================
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollTopBtn.style.display = "flex";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  });
+
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
